@@ -1,16 +1,15 @@
 import React from "react"
 import { VerticalTimeline } from "react-vertical-timeline-component"
 import "react-vertical-timeline-component/style.min.css"
-import styled from "styled-components"
+import styled, { useTheme } from "styled-components"
 import { education } from "../../data/constants"
 import EducationCard from "../cards/EducationCard"
-import { useTheme } from "styled-components"
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  justify-contnet: center;
-  position: rlative;
+  justify-content: center;
+  position: relative;
   z-index: 1;
   align-items: center;
 `
@@ -67,7 +66,10 @@ const Education = () => {
 
         <VerticalTimeline lineColor={theme.primary}>
           {education.map((education, index) => (
-            <EducationCard key={`education-${index}`} education={education} />
+            <EducationCard
+              key={`education-${index}_${education.school}`}
+              education={education}
+            />
           ))}
         </VerticalTimeline>
       </Wrapper>

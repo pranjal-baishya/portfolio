@@ -1,20 +1,13 @@
-import React from "react"
-import styled, { useTheme } from "styled-components"
+import { useState } from "react"
+import styled from "styled-components"
 import { Project } from "../../data/types"
-import { createGlobalStyle } from "styled-components"
 
 const Card = styled.div`
   width: 330px;
   height: 490px;
-  background-color: ${({ theme }) => theme.card};
+  position: relative;
+  perspective: 1000px;
   cursor: pointer;
-  border-radius: 10px;
-  box-shadow: 0 0 12px 4px rgba(0, 0, 0, 0.4);
-  overflow: hidden;
-  padding: 26px 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
   transition: all 0.5s ease-in-out;
   &:hover {
     transform: translateY(-10px);
@@ -22,33 +15,83 @@ const Card = styled.div`
     filter: brightness(1.1);
   }
 `
+
+const CardInner = styled.div<{ isFlipped: boolean }>`
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+  transform: ${(props) => (props.isFlipped ? "rotateY(180deg)" : "rotateY(0)")};
+`
+
+const CardFace = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  background-color: ${({ theme }) => theme.card};
+  border-radius: 10px;
+  box-shadow: 0 0 12px 4px rgba(0, 0, 0, 0.4);
+  padding: 26px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+`
+
+const CardBack = styled(CardFace)`
+  transform: rotateY(180deg);
+`
+
+const ImageContainer = styled.div`
+  position: relative;
+  width: 100%;
+  height: 180px;
+
+  &:hover .button-overlay {
+    opacity: 1;
+  }
+`
+
+const ButtonOverlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 10px;
+`
+
 const Image = styled.img`
   width: 100%;
   height: 180px;
   background-color: ${({ theme }) => theme.white};
   border-radius: 10px;
   box-shadow: 0 0 16px 2px rgba(0, 0, 0, 0.3);
-  object-fit: cover;
+  object-fit: contain;
   position: relative;
   transition: all 0.3s ease;
-  
+
   &:after {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(
-      135deg,
-      rgba(0, 0, 0, 0.4) 0%,
-      transparent 50%
-    );
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, transparent 50%);
     border-radius: 10px;
     opacity: 0;
     transition: opacity 0.3s ease;
   }
-  
+
   ${Card}:hover & {
     transform: scale(1.03);
     &:after {
@@ -74,19 +117,12 @@ const Tag = styled.span`
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
   border: 1px solid ${({ theme }) => theme.primary + 30};
   transition: all 0.2s ease;
-  
+
   &:hover {
     transform: translateY(-2px);
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
     background-color: ${({ theme }) => theme.primary + 30};
   }
-`
-const Details = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 0px;
-  padding: 0px 2px;
 `
 const Title = styled.div`
   font-size: 20px;
@@ -100,7 +136,7 @@ const Title = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   position: relative;
-  
+
   /* Tech-style gradient text */
   background: linear-gradient(
     90deg,
@@ -111,24 +147,24 @@ const Title = styled.div`
   background-clip: text;
   -webkit-text-fill-color: transparent;
   transition: all 0.3s ease;
-  
+
   ${Card}:hover & {
     background-position: right center;
   }
 `
-const Date = styled.div`
+const StyledDate = styled.div`
   font-size: 12px;
   margin-left: 2px;
   font-weight: 400;
   color: ${({ theme }) => theme.text_secondary};
-  font-family: 'Courier New', monospace;
+  font-family: "Courier New", monospace;
   letter-spacing: 0.5px;
-  
+
   &:before {
-    content: '// ';
+    content: "// ";
     color: ${({ theme }) => theme.primary};
   }
-  
+
   @media only screen and (max-width: 768px) {
     font-size: 10px;
   }
@@ -162,35 +198,11 @@ const Avatar = styled.img`
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   border: 3px solid ${({ theme }) => theme.card};
   transition: all 0.2s ease;
-  
+
   &:hover {
     transform: translateY(-3px) scale(1.1);
     border-color: ${({ theme }) => theme.primary};
     z-index: 10;
-  }
-`
-const ButtonGroup = styled.div`
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  margin-top: auto;
-  position: relative;
-  padding-top: 12px;
-  
-  /* Tech-inspired separator line */
-  &:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(
-      90deg, 
-      transparent, 
-      ${({ theme }) => theme.primary + "50"}, 
-      transparent
-    );
   }
 `
 const Button = styled.a<{ primary?: boolean }>`
@@ -203,6 +215,7 @@ const Button = styled.a<{ primary?: boolean }>`
   border: 1.8px solid
     ${({ theme, primary }) => (primary ? "transparent" : theme.primary)};
   border-radius: 6px;
+  margin: 0px 12px;
   padding: 8px 12px;
   cursor: pointer;
   text-align: center;
@@ -214,16 +227,18 @@ const Button = styled.a<{ primary?: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 
   /* Tech-inspired gradient border for non-primary button */
-  ${({ primary }) => !primary && `
+  ${({ primary }) =>
+    !primary &&
+    `
     background: linear-gradient(to right, transparent, transparent) padding-box,
                 linear-gradient(135deg, rgba(0,0,0,0), rgba(120,120,255,0.5)) border-box;
   `}
 
   &:before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
@@ -242,8 +257,8 @@ const Button = styled.a<{ primary?: boolean }>`
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+
     &:before {
       transform: translateX(100%);
       transition: transform 0.6s ease;
@@ -255,131 +270,113 @@ const Button = styled.a<{ primary?: boolean }>`
 const ButtonIcon = styled.span`
   margin-right: 6px;
   font-weight: bold;
-  font-family: 'Courier New', monospace;
-  color: ${({ theme }) => theme.primary};
+  font-family: "Courier New", monospace;
+  color: ${({ theme }) => theme.text_primary};
 `
 
-const ProjectCard = ({ project }: { project: Project }) => {
-  const theme = useTheme()
-  const cardRef = React.useRef<HTMLDivElement>(null)
-  
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return
-    
-    const card = cardRef.current
-    const rect = card.getBoundingClientRect()
-    const x = e.clientX - rect.left
-    const y = e.clientY - rect.top
-    
-    const centerX = rect.width / 2
-    const centerY = rect.height / 2
-    
-    const rotateX = (y - centerY) / 20
-    const rotateY = (centerX - x) / 20
-    
-    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`
-  }
-  
-  const handleMouseLeave = () => {
-    if (!cardRef.current) return
-    cardRef.current.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)'
-  }
-  
-  const handleMouseEnter = () => {
-    if (!cardRef.current) return
-    cardRef.current.style.transition = 'transform 0.3s ease-out'
-  }
+const FlipIndicator = styled.div`
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  color: ${({ theme }) => theme.primary};
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  opacity: 0.8;
+  transition: all 0.3s ease;
 
-  // Add a text typing effect for the title
-  React.useEffect(() => {
-    const titleElement = document.querySelector(`[data-project="${project.id}"] .project-title`);
-    if (titleElement) {
-      titleElement.classList.add('typing-animation');
-    }
-  }, [project.id]);
-
-  return (
-    <Card 
-      ref={cardRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      onMouseEnter={handleMouseEnter}
-      data-project={project.id}
-    >
-      <Image src={project.image} />
-      <Tags>
-        {project.tags?.map((tag, index) => (
-          <Tag key={index}>{tag}</Tag>
-        ))}
-      </Tags>
-      <Details>
-        <Title className="project-title">{project.title}</Title>
-        <Date>{project.date}</Date>
-        <Description>{project.description}</Description>
-      </Details>
-      {project.member && (
-        <Members>
-          {project.member?.map((member, index) => (
-            <Avatar key={index} src={member.img} />
-          ))}
-        </Members>
-      )}
-      <ButtonGroup>
-        <Button
-          href={project.github}
-          target="_blank"
-          style={{
-            color: theme.text_primary,
-            borderColor: theme.primary,
-          }}
-        >
-          <ButtonIcon>{'<>'}</ButtonIcon>
-          Code
-        </Button>
-        <Button
-          primary
-          href={project.webapp}
-          target="_blank"
-          style={{
-            background: theme.primary,
-            color: theme.text_primary,
-          }}
-        >
-          <ButtonIcon>{'>_'}</ButtonIcon>
-          Demo
-        </Button>
-      </ButtonGroup>
-    </Card>
-  )
-}
-
-// Add global styles for the typing animation
-const GlobalStyle = createGlobalStyle`
-  @keyframes typing-cursor {
-    0%, 100% { border-color: transparent; }
-    50% { border-color: ${({ theme }) => theme.primary}; }
-  }
-  
-  .typing-animation {
-    position: relative;
-  }
-  
-  .typing-animation::after {
-    content: '';
-    position: absolute;
-    right: -4px;
-    top: 50%;
-    transform: translateY(-50%);
-    height: 18px;
-    width: 2px;
-    background: ${({ theme }) => theme.primary};
-    animation: typing-cursor 1s infinite;
-    opacity: 0;
-  }
-  
-  .card:hover .typing-animation::after {
+  &:hover {
+    transform: scale(1.05);
     opacity: 1;
   }
 `
+
+const DescriptionFull = styled(Description)`
+  -webkit-line-clamp: unset;
+  margin: 20px 0;
+  max-height: 300px;
+  overflow-y: auto;
+  padding-right: 10px;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: ${({ theme }) => theme.card};
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: ${({ theme }) => theme.primary + "50"};
+    border-radius: 3px;
+  }
+`
+
+const ProjectCard = ({ project }: { project: Project }) => {
+  const [isFlipped, setIsFlipped] = useState(false)
+
+  const handleFlip = () => {
+    setIsFlipped(!isFlipped)
+  }
+
+  return (
+    <Card onClick={handleFlip}>
+      <CardInner isFlipped={isFlipped}>
+        <CardFace>
+          <ImageContainer>
+            <Image src={project.image} />
+            <ButtonOverlay className="button-overlay">
+              <Button
+                href={project.github}
+                target="_blank"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <ButtonIcon>{"<>"}</ButtonIcon>
+                Code
+              </Button>
+              <Button
+                primary
+                href={project.webapp}
+                target="_blank"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <ButtonIcon>{">_"}</ButtonIcon>
+                Demo
+              </Button>
+            </ButtonOverlay>
+          </ImageContainer>
+          <Title>{project.title}</Title>
+          <StyledDate>{project.date}</StyledDate>
+          <Tags>
+            {project.tags?.map((tag, index) => (
+              <Tag key={index + tag}>{tag}</Tag>
+            ))}
+          </Tags>
+          {project.member && (
+            <Members>
+              {project.member?.map((member, index) => (
+                <Avatar key={index + member.name} src={member.img} />
+              ))}
+            </Members>
+          )}
+          <FlipIndicator>
+            <span>Click to see details</span>
+            <span style={{ transform: "rotate(90deg)" }}>↺</span>
+          </FlipIndicator>
+        </CardFace>
+
+        <CardBack>
+          <Title>{project.title}</Title>
+          <DescriptionFull>{project.description}</DescriptionFull>
+          <FlipIndicator>
+            <span>Back to overview</span>
+            <span style={{ transform: "rotate(-90deg)" }}>↺</span>
+          </FlipIndicator>
+        </CardBack>
+      </CardInner>
+    </Card>
+  )
+}
 
 export default ProjectCard

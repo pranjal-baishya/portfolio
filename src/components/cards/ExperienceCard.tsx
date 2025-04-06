@@ -99,7 +99,8 @@ const Company = styled.div`
     font-size: 12px;
   }
 `;
-const Date = styled.div`
+
+const StyledDate = styled.div`
   font-size: 12px;
   font-weight: 400;
   color: ${({ theme }) => theme.text_secondary + 80};
@@ -321,7 +322,7 @@ const ExperienceCard = ({ experience }: { experience: Experience }) => {
           <Body>
             <Role>{experience?.role}</Role>
             <Company>{experience?.company}</Company>
-            <Date>{experience?.date}</Date>
+            <StyledDate>{experience?.date}</StyledDate>
           </Body>
         </Top>
         <Description>
@@ -334,7 +335,7 @@ const ExperienceCard = ({ experience }: { experience: Experience }) => {
                 <ItemWrapper>
                   {experience?.skills?.map((skill, index) => (
                     <Skill 
-                      key={index}
+                      key={index + skill}
                       style={{
                         transitionDelay: `${index * 50}ms`
                       }}

@@ -1,19 +1,19 @@
-import React from "react";
-import { VerticalTimeline } from "react-vertical-timeline-component";
-import "react-vertical-timeline-component/style.min.css";
-import {styled, useTheme} from "styled-components";
-import { experiences } from "../../data/constants";
-import ExperienceCard from "../cards/ExperienceCard";
+import React from "react"
+import { VerticalTimeline } from "react-vertical-timeline-component"
+import "react-vertical-timeline-component/style.min.css"
+import { styled, useTheme } from "styled-components"
+import { experiences } from "../../data/constants"
+import ExperienceCard from "../cards/ExperienceCard"
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  justify-contnet: center;
+  justify-content: center;
   margin-top: 50px;
   position: relative;
   z-index: 1;
   align-items: center;
-`;
+`
 
 const Wrapper = styled.div`
   position: relative;
@@ -27,7 +27,7 @@ const Wrapper = styled.div`
   @media (max-width: 960px) {
     flex-direction: column;
   }
-`;
+`
 const Title = styled.div`
   font-size: 52px;
   text-align: center;
@@ -38,7 +38,7 @@ const Title = styled.div`
     margin-top: 12px;
     font-size: 32px;
   }
-`;
+`
 const Desc = styled.div`
   font-size: 18px;
   text-align: center;
@@ -47,11 +47,11 @@ const Desc = styled.div`
   @media (max-width: 768px) {
     font-size: 16px;
   }
-`;
+`
 
 const Experience = () => {
-  const theme = useTheme();
-  
+  const theme = useTheme()
+
   return (
     <Container id="Experience">
       <Wrapper>
@@ -68,14 +68,14 @@ const Experience = () => {
         <VerticalTimeline lineColor={theme.primary}>
           {experiences.map((experience, index) => (
             <ExperienceCard
-              key={`experience-${index}`}
+              key={`experience-${index}_${experience.company}`}
               experience={experience}
             />
           ))}
         </VerticalTimeline>
       </Wrapper>
     </Container>
-  );
-};
+  )
+}
 
-export default Experience;
+export default Experience

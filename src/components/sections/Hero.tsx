@@ -256,6 +256,12 @@ const CyberpunkButton = styled.a`
     color: ${({ theme }) => theme.primary};
     opacity: 0.7;
     top: 20px;
+
+    @media (max-width: 640px) {
+      content: "</>";
+      right: 35px;
+      top: 15px;
+    }
   }
 
   @media (max-width: 640px) {

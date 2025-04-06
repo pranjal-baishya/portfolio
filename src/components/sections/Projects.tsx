@@ -2,14 +2,15 @@ import { useState } from "react"
 import styled from "styled-components"
 import { projects } from "../../data/constants"
 import ProjectCard from "../cards/ProjectCard"
+import { ProjectCategory } from "../../data/types"
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  justify-contnet: center;
+  justify-content: center;
   margin-top: 50px;
   padding: 0px 16px;
-  position: rlative;
+  position: relative;
   z-index: 1;
   align-items: center;
 `
@@ -108,40 +109,34 @@ const Projects = () => {
 
         <FilterContainer>
           <FilterChip
-            active={toggle === "all"}
-            onClick={() => setToggle("all")}
+            active={toggle === ProjectCategory.ALL}
+            onClick={() => setToggle(ProjectCategory.ALL)}
           >
             All Projects
           </FilterChip>
           <FilterChip
-            active={toggle === "web app"}
-            onClick={() => setToggle("web app")}
+            active={toggle === ProjectCategory.WEB_APP}
+            onClick={() => setToggle(ProjectCategory.WEB_APP)}
           >
             Web Apps
           </FilterChip>
           <FilterChip
-            active={toggle === "android app"}
-            onClick={() => setToggle("android app")}
+            active={toggle === ProjectCategory.ANDROID_APP}
+            onClick={() => setToggle(ProjectCategory.ANDROID_APP)}
           >
             Android Apps
-          </FilterChip>
-          <FilterChip
-            active={toggle === "machine learning"}
-            onClick={() => setToggle("machine learning")}
-          >
-            Machine Learning
           </FilterChip>
         </FilterContainer>
 
         <CardContainer>
-          {toggle === "all"
+          {toggle === ProjectCategory.ALL
             ? projects.map((project, index) => (
-                <ProjectCard key={index} project={project} />
+                <ProjectCard key={index + project.title} project={project} />
               ))
             : projects
                 .filter((item) => item.category === toggle)
                 .map((project, index) => (
-                  <ProjectCard key={index} project={project} />
+                  <ProjectCard key={index + project.title} project={project} />
                 ))}
         </CardContainer>
       </Wrapper>

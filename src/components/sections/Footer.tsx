@@ -8,13 +8,23 @@ import {
   Twitter,
 } from "@mui/icons-material";
 
-const FooterContainer = styled.div`
+interface FooterProps {
+  darkMode: boolean;
+}
+
+const FooterContainer = styled.div<{ darkMode: boolean }>`
   width: 100%;
   padding: 2rem 0;
   display: flex;
   justify-content: center;
   z-index: 10;
   position: relative;
+  background-image: ${({ darkMode }) => `url("https://capsule-render.vercel.app/api?type=waving&height=300&section=footer&color=0:${darkMode ? '141321' : 'C0C0C0'},100:${darkMode ? '4D71E5' : '87CEEB'}")`};
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  min-height: 400px;
+  padding-top: 100px;
 `;
 const FooterWrapper = styled.div`
   width: 100%;
@@ -154,7 +164,7 @@ const BackToTopButton = styled.button<{ visible: boolean }>`
   }
 `;
 
-const Footer = () => {
+const Footer: React.FC<FooterProps> = ({ darkMode }) => {
   const [showButton, setShowButton] = React.useState(false);
 
   // Show button when scrolled down
@@ -180,7 +190,7 @@ const Footer = () => {
   };
 
   return (
-    <FooterContainer>
+    <FooterContainer darkMode={darkMode}>
       <FooterWrapper>
         <Logo href="#About">Pranjal Baishya</Logo>
         <Nav>

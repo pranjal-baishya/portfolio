@@ -16,8 +16,15 @@ export interface Skill {
   image: string
 }
 
+export const enum SkillTitle {
+  FRONTEND = "Frontend",
+  BACKEND = "Backend",
+  DEV_OPS = "DevOps",
+  MOBILE = "Mobile",
+  OTHERS = "Others",
+}
 export interface SkillCategory {
-  title: string
+  title: SkillTitle
   skills: Skill[]
 }
 
@@ -50,6 +57,11 @@ export interface ProjectMember {
   github: string
 }
 
+export const enum ProjectCategory {
+  ALL = "all",
+  WEB_APP = "web app",
+  ANDROID_APP = "android app",
+}
 export interface Project {
   id: number
   title: string
@@ -57,7 +69,7 @@ export interface Project {
   description: string
   image: string
   tags: string[]
-  category: string
+  category: ProjectCategory
   github: string
   webapp: string
   member?: ProjectMember[]
