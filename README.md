@@ -16,7 +16,6 @@ A brief description of your portfolio project. What does it showcase? What is it
 *   **Section 3:** (e.g., Experience)
 *   **Section 3:** (e.g., Personal Projects)
 *   **Section 4:** (e.g., Contact Form)
-*   ...
 
 ## Technologies Used
 
@@ -27,7 +26,6 @@ A brief description of your portfolio project. What does it showcase? What is it
 *   EmailJS (for contact form)
 *   React Router DOM
 *   React Vertical Timeline Component
-*   ...
 
 ## Setup and Run Locally
 
