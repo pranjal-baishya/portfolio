@@ -498,7 +498,7 @@ export const projects: Project[] = [
     title: "Portfolio Website",
     date: "Jan 2025 - April 2025",
     description:
-      "A modern and interactive 3D portfolio website showcasing my professional journey and technical expertise. Built with cutting-edge web technologies, this portfolio features immersive 3D graphics, smooth animations, and responsive design. The website includes sections for projects, skills, experience timeline, and a contact form with email integration.",
+      "A modern and interactive portfolio website showcasing my professional journey and technical expertise. Built with cutting-edge web technologies, this portfolio features smooth animations, and responsive design. The website includes sections for projects, skills, experience timeline, and a contact form with email integration.",
     image: portfolioImage,
     tags: [
       "React.js",
@@ -512,8 +512,8 @@ export const projects: Project[] = [
       "CI/CD",
     ],
     category: ProjectCategory.WEB_APP,
-    github: "https://github.com/pranjal-baishya/3d-portfolio",
-    webapp: "https://pranjal-baishya.github.io/3d-portfolio/",
+    github: "https://github.com/pranjal-baishya/Portfolio",
+    webapp: "https://pranjal-baishya.github.io/Portfolio/",
   },
   {
     id: 1,
