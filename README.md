@@ -6,7 +6,7 @@
 
 A brief description of your portfolio project. What does it showcase? What is its main purpose?
 
-![Portfolio Demo GIF](./assets/portfolio_demo.gif)
+![Portfolio Demo GIF](./public/assets/portfolio_demo.gif)
 
 ## Features
 
