@@ -31,7 +31,7 @@ export const Bio: BioType = {
     "I'm a tech enthusiast passionate about solving complex problems and building scalable systems. Always exploring new technologies, I focus on writing clean, efficient code and creating robust solutions. Continuously learning, I thrive in dynamic environments and enjoy turning ideas into high-performing results.",
   github: "https://github.com/pranjal-baishya",
   resume:
-    "https://drive.google.com/file/d/1WL335fhmtvtSJ-XPLrQAVIyW7wK_GLzg/view?usp=drive_link",
+    "https://drive.google.com/file/d/1lS4TUvWITQKhXEmhI40HptfxHj8k9Zym/view?usp=sharing",
   linkedin: "https://www.linkedin.com/in/pranjal-baishya-46a411174/",
   twitter: "https://twitter.com/PranjalBaishya",
   insta: "https://www.instagram.com/pranjal._.baishya/",
