@@ -539,8 +539,8 @@ export const projects: Project[] = [
       "Vite",
     ],
     category: ProjectCategory.WEB_APP,
-    github: "https://github.com/pranjal-baishya/full-stack-chat-app",
-    webapp: "https://full-stack-chat-app.netlify.app/",
+    github: "https://github.com/pranjal-baishya/fullstack-chat-app",
+    webapp: "https://fullstack-chat-app-glyx.onrender.com/",
   },
   {
     id: 2,
