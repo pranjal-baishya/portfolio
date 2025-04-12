@@ -234,7 +234,8 @@ const Contact = () => {
       .sendForm(
         "service_dx08h0p",
         "template_2a3z06v",
-        form.current as HTMLFormElement
+        form.current as HTMLFormElement,
+        "cizDeEZSlxPfVIJmv"
       )
       .then(
         (result) => {
