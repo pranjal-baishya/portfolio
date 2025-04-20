@@ -18,6 +18,7 @@ import sudokuWeb from "../images/sudokuWeb.png"
 import sudokuMobile from "../images/sudokuMobile.png"
 import portfolioImage from "../images/portfolioImage.png"
 import mathPuzzleGame from "../images/mathPuzzleGame.png"
+import ChatAppImage from "../images/chatAppImage.png"
 
 export const Bio: BioType = {
   name: "Pranjal Baishya",
@@ -166,8 +167,7 @@ export const skills: SkillCategory[] = [
       },
       {
         name: "Prisma",
-        image:
-          "https://cdn.worldvectorlogo.com/logos/prisma-2.svg",
+        image: "https://cdn.worldvectorlogo.com/logos/prisma-2.svg",
       },
       {
         name: "Redis",
@@ -521,8 +521,7 @@ export const projects: Project[] = [
     date: "March 2025",
     description:
       "This is a modern, full-stack real-time chat application built with the MERN stack (MongoDB, Express.js, React, Node.js) using TypeScript throughout the codebase. The application leverages Socket.IO to enable real-time bidirectional communication between users, allowing for instant message delivery and updates.",
-    image:
-      "https://user-images.githubusercontent.com/64485885/234916413-96296f13-fe4b-4cc4-b215-e72bd7c27928.png",
+    image: ChatAppImage,
     tags: [
       "React Js",
       "MongoDb",
@@ -536,7 +535,6 @@ export const projects: Project[] = [
       "Socket.IO",
       "DaisyUI",
       "TypeScript",
-      "Vite",
     ],
     category: ProjectCategory.WEB_APP,
     github: "https://github.com/pranjal-baishya/fullstack-chat-app",
