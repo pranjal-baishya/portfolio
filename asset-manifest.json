@@ -1,10 +1,11 @@
 {
   "files": {
     "main.css": "/portfolio/static/css/main.58a0c615.css",
-    "main.js": "/portfolio/static/js/main.228aaee8.js",
+    "main.js": "/portfolio/static/js/main.334a0ba7.js",
     "static/media/HeroImage.jpg": "/portfolio/static/media/HeroImage.aa0ce628eb21bdc3bf71.jpg",
     "static/media/portfolioImage.png": "/portfolio/static/media/portfolioImage.99a3c03927a7aac8934d.png",
     "static/media/mathPuzzleGame.png": "/portfolio/static/media/mathPuzzleGame.830898a94386c2ed68b3.png",
+    "static/media/chatAppImage.png": "/portfolio/static/media/chatAppImage.25d333b442f5508b0e4e.png",
     "static/media/sudokuMobile.png": "/portfolio/static/media/sudokuMobile.5a7e207fe9802f293405.png",
     "static/media/sudokuWeb.png": "/portfolio/static/media/sudokuWeb.3693a833eb9b60c563dc.png",
     "static/media/Vidyabharti.png": "/portfolio/static/media/Vidyabharti.3380f377f60e67c18f44.png",
@@ -12,10 +13,10 @@
     "static/media/ccNITSLogo.png": "/portfolio/static/media/ccNITSLogo.c0fd65b15d2efdb6c069.png",
     "index.html": "/portfolio/index.html",
     "main.58a0c615.css.map": "/portfolio/static/css/main.58a0c615.css.map",
-    "main.228aaee8.js.map": "/portfolio/static/js/main.228aaee8.js.map"
+    "main.334a0ba7.js.map": "/portfolio/static/js/main.334a0ba7.js.map"
   },
   "entrypoints": [
     "static/css/main.58a0c615.css",
-    "static/js/main.228aaee8.js"
+    "static/js/main.334a0ba7.js"
   ]
 }
